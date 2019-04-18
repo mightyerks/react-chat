@@ -6,7 +6,7 @@ import Login from './Login'
 import Home from './Home'
 import Private from './Private'
 
-const loggedIn = true;
+const loggedIn = false;
 
 export default () => (
     <BrowserRouter>
