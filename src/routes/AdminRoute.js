@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 
 // admin page
-import EventHistory from './EventHistory'
-import ChatHistory from './ChatHistory'
-import Rooms from './Rooms'
+import EventHistory from '../admin/EventHistory'
+import ChatHistory from '../admin/ChatHistory'
+import Rooms from '../admin/Rooms'
 
 
 

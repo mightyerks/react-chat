@@ -1,9 +1,8 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom'
 
-import Chat from '../Chat'
-import Login from './Login'
-import Home from './Home'
+import Chat from '../components/Chat'
+import Login from '../admin/Login'
 import AdminRoute from '../admin/AdminRoute'
 
 const loggedIn = true; 
@@ -23,7 +22,6 @@ export default () => (
         <Switch>
             <Route path="/" exact component={ Chat } />
             <Route path="/login" exact component={ Login } />
-            <Route path="/home" component={ Home } />
             <Route path="logout" component = {Chat}/>
             <Route path="/admin" 
                 exact render = {() =>

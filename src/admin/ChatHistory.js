@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import AdminRoute from './AdminRoute'
-
 
 export default class ChatHistory extends Component {
   render() {
