@@ -13,34 +13,38 @@ class Chat extends React.Component{
         };
 
 
-        this.socket = io('localhost:5000');
+        this.socket = io('localhost:4000');
 
         this.socket.on('RECEIVE_MESSAGE', function(data){
             addMessage(data);
         });
 
+        // chat box
         const addMessage = data => {
             console.log(data);
             this.setState({messages: [...this.state.messages, data]});
             console.log(this.state.messages);
         };
 
-        this.sendMessage = ev => {
-            ev.preventDefault();
+        // sending message
+        this.sendMessage = e => {
+            e.preventDefault();
             this.socket.emit('SEND_MESSAGE', {
-                author: this.state.username,
                 message: this.state.message
             })
             this.setState({message: ''});
+        }
 
+        // adding message
+        this.connectUser = e => {
+            e.preventDefault();
+            this.socket.emit('USER_CONNECTED', {
+                author: this.state.username
+            })
+            this.setState({author: ''});
         }
     }
 
-    handleClick(e) {
-        e.preventDefault();
-        this.props.history.push('/login');
-      }
-    
     render(){
         return (
             <div className="container">
@@ -61,6 +65,8 @@ class Chat extends React.Component{
                             <div className="card-footer">
                                 <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/>
                                 <br/>
+                                <button onClick={this.connectUser} className="btn btn-primary form-control">Add Username</button>
+                                <hr/>
                                 <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
                                 <br/>
                                 <button onClick={this.sendMessage} className="btn btn-primary form-control">Send</button>
