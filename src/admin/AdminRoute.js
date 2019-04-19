@@ -3,14 +3,18 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 
 // admin page
-import EventHistory from '../admin/EventHistory'
-import ChatHistory from '../admin/ChatHistory'
-import Rooms from '../admin/Rooms'
+import EventHistory from './EventHistory'
+import ChatHistory from './ChatHistory'
+import Rooms from './Rooms'
+
 
 
 export default class Private extends Component {
+
+  
   render() {
     return (
+      <div>
       <BrowserRouter>
         <nav className="navbar navbar-default">
         <div className="container">
@@ -27,6 +31,7 @@ export default class Private extends Component {
             <Route path="/rooms" component={ Rooms } />
         </Switch>
     </BrowserRouter>
+    </div>
     )
   }
 }

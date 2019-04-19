@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom'
 import Chat from '../Chat'
 import Login from './Login'
 import Home from './Home'
-import Private from './Private'
+import AdminRoute from '../admin/AdminRoute'
 
 const loggedIn = true; 
 // if it is set to false, admin will always redirect to login page
@@ -27,7 +27,7 @@ export default () => (
             <Route path="logout" component = {Chat}/>
             <Route path="/admin" 
                 exact render = {() =>
-                    loggedIn ? (<Private/>) : 
+                    loggedIn ? (<AdminRoute/>) : 
                     (<Redirect to={{pathname: '/login'}}/>)
                 } 
             />
