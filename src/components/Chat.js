@@ -21,15 +21,18 @@ class Chat extends React.Component{
 
         // chat box
         const addMessage = data => {
-            console.log(data);
+            console.log(data); // {author: "fffdsa", message: "fsa"}
             this.setState({messages: [...this.state.messages, data]});
-            console.log(this.state.messages);
+            console.log(this.state.messages); 
+            // 0: {author: "fdsa", message: "fdsa"}
+            // 1: {author: "fdsa", message: "fdsfafdsa"}
         };
 
         // sending message
         this.sendMessage = e => {
             e.preventDefault();
             this.socket.emit('SEND_MESSAGE', {
+                author: this.state.username,
                 message: this.state.message
             })
             this.setState({message: ''});
@@ -65,8 +68,6 @@ class Chat extends React.Component{
                             <div className="card-footer">
                                 <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/>
                                 <br/>
-                                <button onClick={this.connectUser} className="btn btn-primary form-control">Add Username</button>
-                                <hr/>
                                 <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
                                 <br/>
                                 <button onClick={this.sendMessage} className="btn btn-primary form-control">Send</button>
