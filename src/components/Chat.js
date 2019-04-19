@@ -15,7 +15,7 @@ class Chat extends React.Component{
 
         this.socket = io('localhost:4000');
 
-        this.socket.on('RECEIVE_MESSAGE', function(data){
+        this.socket.on('UPDATE_CHAT', function(data){
             addMessage(data);
         });
 
@@ -57,6 +57,7 @@ class Chat extends React.Component{
                             <div className="card-body">
                                 <div className="card-title">Global Chat</div>
                                 <hr/>
+                                
                                 <div className="messages">
                                     {this.state.messages.map(message => {
                                         return (
@@ -67,6 +68,8 @@ class Chat extends React.Component{
                             </div>
                             <div className="card-footer">
                                 <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/>
+                                <br/>
+                                <button onClick={this.connectUser} className="btn btn-primary form-control">add</button>
                                 <br/>
                                 <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
                                 <br/>
