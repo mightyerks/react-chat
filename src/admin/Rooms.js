@@ -2,6 +2,18 @@ import React, { Component } from 'react'
 
 
 export default class Rooms extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      room: '',
+      createdDate: Date.now(),
+      editDate: Date.now(),
+      status: '',
+      
+    }
+  }
+
   render() {
     return (
       <div>
