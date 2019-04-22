@@ -1,1 +1,3 @@
 # react-chat
+
+npm start
