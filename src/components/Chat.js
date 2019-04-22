@@ -9,9 +9,9 @@ class Chat extends React.Component{
             username: '',
             message: '',
             room: 'Main',
-            rooms:[],
+            // rooms:[],
             messages: [],
-            user:'',
+            // user:'',
             currentRoom:'',
             users:[]
         };
@@ -19,8 +19,8 @@ class Chat extends React.Component{
 
         this.socket = io('localhost:4000');
 
-        this.socket.on('UPDATE_CHAT', (uname, msg, room)=>{
-            var message = {author: uname, message:msg, room:room}
+        this.socket.on('UPDATE_CHAT', (uname, msg)=>{
+            var message = {author: uname, message:msg}
             addMessage(message);
         });
 
@@ -44,7 +44,7 @@ class Chat extends React.Component{
             this.socket.emit('SEND_MESSAGE', {
                 author: this.state.username,
                 message: this.state.message,
-                room: this.state.room
+                // room: this.state.room
             })
             this.setState({message: ''});
         }
@@ -67,7 +67,7 @@ class Chat extends React.Component{
             }
         }
 
-        const {rooms, user, room, admin} = this.state
+        const {room} = this.state
 
     }
 
@@ -90,11 +90,11 @@ class Chat extends React.Component{
                                         Chat Rooms
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                        <select defaultValue={this.state.selectValue} onChange={this.handleChange}>
-                                            <option className="dropdown-item" value='Main Chat' onChange={ev => this.setState({room: ev.target.value})}>Main Chat</option>
-                                            <option className="dropdown-item" value='Only Wizards' onChange={ev => this.setState({room: ev.target.value})}>Only Wizards</option>
-                                            <option className="dropdown-item" value='Only Muggles' onChange={ev => this.setState({room: ev.target.value})}>Only Muggles</option>
-                                        </select>
+                                        {/* <select defaultValue={this.state.selectValue} onChange={this.handleChange}> */}
+                                            <button className="dropdown-item" value='Main Chat' onChange={ev => this.setState({room: ev.target.value})}>Main Chat</button>
+                                            <button className="dropdown-item" value='Only Wizards' onChange={ev => this.setState({room: ev.target.value})}>Only Wizards</button>
+                                            <button className="dropdown-item" value='Only Muggles' onChange={ev => this.setState({room: ev.target.value})}>Only Muggles</button>
+                                        {/* </select> */}
                                     </div>
                                 </div>
                                 <hr/>

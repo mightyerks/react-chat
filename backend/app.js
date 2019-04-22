@@ -8,6 +8,16 @@ var app = express();
 var mongoose = require('mongoose');
 var config = require("./config/db");
 
+// chat route (commands to read db)
+var router = require('./routes/router')
+// var router = require('./routes/router')
+// express api route
+app.post('/api/roomhistory?', router);
+// express api route
+app.get('/api/history', router);
+// express api route
+app.get('/api/eventlog', router);
+
 
 // socket.io
 // var http = require('http').createServer(app);
@@ -40,13 +50,13 @@ var Event = require('./models/event')
 io = socket(server);
 
 username = {};
-var rooms = ['Main Room', 'Only Wizards', 'Only Muggles'];
+// var rooms = ['Main Room', 'Only Wizards', 'Only Muggles'];
 
-module.exports = (io) => {
+// module.exports = (io) => {
   io.sockets.on('connection', (socket) => {
     console.log(socket.id);
 
-    socket.emit('UPDATE_CHAT', 'CHATBOT', 'You have connected to the Main Room');
+    // socket.emit('UPDATE_CHAT', 'CHATBOT', 'You have connected to the Main Room');
 
     socket.on('USER_CONNECTED', (data)=> {
       console.log('user connected')
@@ -57,17 +67,17 @@ module.exports = (io) => {
       socket.author = data.author
       socket.room = 'Main Room';
       // add the client's username to the global list
-      usernames[username] = data.author;
+      // usernames[username] = data.author;
       // send client to room 1
       socket.join('Main Room');
       // echo to client they've connected
       socket.emit('UPDATE_CHAT', 'SERVER', 'you have connected to the Main Room');
       // echo to room 1 that a person has connected to their room
       socket.broadcast.to('Main Room').emit('UPDATE_CHAT', 'SERVER', socket.author + ' has connected to this room');
-      socket.emit('updaterooms', rooms, 'Main Room');
+      // socket.emit('updaterooms', rooms, 'Main Room');
       //save to db
       var event = new Event({name: socket.author, room: socket.room, event:'USER_CONNECTED'});
-      // event.save();
+      event.save();
     })
 
     socket.on('SWITCH_ROOM', function(newroom){
@@ -89,7 +99,7 @@ module.exports = (io) => {
     })
 
     socket.on('SEND_MESSAGE', function(data){
-        io.emit('UPDATE_CHAT', data);
+        io.emit('UPDATE_CHAT', data.author, data.message);
         socket.author = data.author
         socket.message = data.message
         // SAVE TO DATABASE
@@ -102,14 +112,14 @@ module.exports = (io) => {
       socket.author = data.author
       socket.room = data.room
       var bot = {author: "Chat Bot", message: socket.author + " have disconnected"}
-      // socket.leave(socket.room)
+      socket.leave(socket.room)
       socket.broadcast.emit('UPDATE_CHAT', bot)
       // save to db
       // var event = new Event({name: socket.username, room: socket.room, event:'disconnected'});
       // event.save();
     })
 });
-}
+// }
 
 
 

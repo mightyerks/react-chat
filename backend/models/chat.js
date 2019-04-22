@@ -21,6 +21,6 @@ module.exports.getChat = function(callback, limit){
 };
 
 // get chat by roomname
-module.exports.getChatByRoom = function(room, callback){
-    Chat.find({ room : room }, callback);
-};
+// module.exports.getChatByRoom = function(room, callback){
+//     Chat.find({ room : room }, callback);
+// };
